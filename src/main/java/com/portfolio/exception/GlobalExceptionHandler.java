@@ -63,6 +63,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> tratarMensagemInvalida(
             HttpMessageNotReadableException exception) {
 
+        if (exception.getMessage() != null
+                && exception.getMessage().contains("StatusProjeto")) {
+
+            return criarResposta(
+                    HttpStatus.BAD_REQUEST,
+                    "O statusAtual informado não existe"
+            );
+        }
+
         return criarResposta(
                 HttpStatus.BAD_REQUEST,
                 "O corpo da requisição está inválido"
